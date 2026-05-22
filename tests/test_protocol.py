@@ -70,8 +70,18 @@ def test_affiliations_returns_parsed_list(llm_params):
 
 
 def test_affiliations_none_without_fulltext(llm_params):
+    """When full_text is None but abstract is available, should fall back to abstract."""
     client = make_stub_openai_client()
-    paper = make_sample_paper(full_text=None)
+    paper = make_sample_paper(full_text=None, abstract="Sample abstract with affiliations.")
+    result = paper.generate_affiliations(client, llm_params)
+    assert isinstance(result, list)
+    assert len(result) > 0
+
+
+def test_affiliations_none_without_any_text(llm_params):
+    """When both full_text and abstract are None, should return None."""
+    client = make_stub_openai_client()
+    paper = make_sample_paper(full_text=None, abstract=None)
     result = paper.generate_affiliations(client, llm_params)
     assert result is None
 
