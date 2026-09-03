@@ -25,7 +25,7 @@ llm:
     key: ${oc.env:OPENAI_API_KEY}
     base_url: ${oc.env:OPENAI_API_BASE}
   generation_kwargs:
-    max_tokens: 16384
+    max_tokens: 512
     model: deepseek-v4-flash
   full_text_chunk_tokens: 6000
   full_text_chunk_overlap_tokens: 300
@@ -47,6 +47,6 @@ executor:
   debug: false
   send_empty: false
   max_paper_num: 50
-  full_text_brief_paper_num: 20
+  full_text_brief_paper_num: 3
   source: ['arxiv']
   reranker: local
